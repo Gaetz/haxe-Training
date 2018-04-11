@@ -1,4 +1,4 @@
-::@echo off
+@echo off
 
 set buildDir=%~dp0..\build
 set assetsDir=%~dp0..\assets

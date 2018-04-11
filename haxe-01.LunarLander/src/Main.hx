@@ -10,7 +10,7 @@ class Main extends hxd.App {
     }
     
     override function update(dt:Float) {
-        
+
     }
     
     static function main() {

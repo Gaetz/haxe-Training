@@ -25,11 +25,23 @@
                 "$haxe-error",
                 "$haxe-trace"
             ],
+            "presentation": {
+                "echo": true,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared"
+            }
         },
         {
             "label": "Assets",
             "type": "shell",
             "command": "./scripts/assets",
+            "presentation": {
+                "echo": true,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared"
+            }
         },
         {
             "label": "Run",
