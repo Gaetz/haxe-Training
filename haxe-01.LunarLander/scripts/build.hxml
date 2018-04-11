@@ -1,0 +1,6 @@
+-cp src
+-lib heaps
+-D analyzer-optimize
+-debug
+-main Main
+-js build/main.js
