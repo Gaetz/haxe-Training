@@ -1,0 +1,5 @@
+-cp src
+-lib heaps
+-D analyzer-optimize
+-main Main
+--interp
