@@ -277,7 +277,6 @@ hxd_App.prototype = {
 		if(this.isDisposed) {
 			return;
 		}
-		this.update(hxd_Timer.tmod);
 		if(this.isDisposed) {
 			return;
 		}
@@ -300,7 +299,7 @@ Main.main = function() {
 Main.__super__ = hxd_App;
 Main.prototype = $extend(hxd_App.prototype,{
 	init: function() {
-		var tile = h2d_Tile.fromColor(16711680,100,100,null,{ fileName : "Main.hx", lineNumber : 6, className : "Main", methodName : "init"});
+		var tile = h2d_Tile.fromColor(16777215,25,25,null,{ fileName : "Main.hx", lineNumber : 6, className : "Main", methodName : "init"});
 		this.bmp = new h2d_Bitmap(tile,this.s2d);
 		var _this = this.bmp;
 		_this.posChanged = true;
@@ -310,9 +309,6 @@ Main.prototype = $extend(hxd_App.prototype,{
 		_this1.y = this.s2d.height * 0.5;
 	}
 	,update: function(dt) {
-		var _g = this.bmp;
-		_g.posChanged = true;
-		_g.rotation += 0.1;
 	}
 	,__class__: Main
 });
