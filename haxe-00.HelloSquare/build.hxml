@@ -1,5 +1,6 @@
 -cp src
 -lib heaps
 -D analyzer-optimize
+-debug
 -main Main
---interp
+-js build/main.js
