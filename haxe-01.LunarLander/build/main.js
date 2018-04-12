@@ -1152,6 +1152,9 @@ h2d_Sprite.prototype = {
 	,__class__: h2d_Sprite
 };
 var Lander = function(parent) {
+	this.rotateSpeed = 0.05;
+	this.gravity = 0.05;
+	this.propulsion = 0.2;
 	h2d_Sprite.call(this,parent);
 };
 $hxClasses["Lander"] = Lander;
@@ -1162,14 +1165,51 @@ Lander.prototype = $extend(h2d_Sprite.prototype,{
 		var v = this.getScene().width / 2;
 		this.posChanged = true;
 		this.x = v;
+		this.posChanged = true;
+		this.y = 100;
 		this.vx = 0;
 		this.vy = 0;
+		this.isFireOn = false;
+		this.posChanged = true;
+		this.rotation = -Math.PI / 2;
+	}
+	,update: function(dt) {
+		if(hxd_Key.isDown(38)) {
+			this.fireOn();
+		} else if(hxd_Key.isReleased(38)) {
+			this.fireOff();
+		}
+		if(hxd_Key.isDown(37)) {
+			var _g = this;
+			_g.posChanged = true;
+			_g.rotation += this.rotateSpeed * dt;
+		}
+		if(hxd_Key.isDown(39)) {
+			var _g1 = this;
+			_g1.posChanged = true;
+			_g1.rotation -= this.rotateSpeed * dt;
+		}
+		if(this.isFireOn) {
+			var xForce = Math.cos(this.rotation) * this.propulsion;
+			var yForce = Math.sin(this.rotation) * this.propulsion;
+			this.vx += xForce;
+			this.vy += yForce;
+		}
+		this.vy += this.gravity;
+		var _g2 = this;
+		_g2.posChanged = true;
+		_g2.x += this.vx * dt;
+		var _g3 = this;
+		_g3.posChanged = true;
+		_g3.y += this.vy * dt;
 	}
 	,fireOn: function() {
 		this.getSpriteByName("fire").set_visible(true);
+		this.isFireOn = true;
 	}
 	,fireOff: function() {
 		this.getSpriteByName("fire").set_visible(false);
+		this.isFireOn = false;
 	}
 	,__class__: Lander
 });
@@ -1386,8 +1426,6 @@ hxd_App.prototype = {
 var Main = function() {
 	this.groundThickness = 30;
 	this.groundHeight = 40;
-	this.propulsion = -0.1;
-	this.gravity = 0.05;
 	hxd_App.call(this);
 };
 $hxClasses["Main"] = Main;
@@ -1402,33 +1440,24 @@ Main.prototype = $extend(hxd_App.prototype,{
 		this.lander = new Lander(this.s2d);
 		this.lander.init();
 		var landerTile = hxd_Res.get_loader().loadCache("lander.png",hxd_res_Image).toTile();
-		landerTile.center();
+		landerTile.dx = -Math.round(landerTile.width / 2);
+		landerTile.dy = -Math.round(landerTile.height / 2);
 		new h2d_Bitmap(landerTile,this.lander);
 		var fire = new h2d_Sprite(this.lander);
 		fire.name = "fire";
 		var fireTile = hxd_Res.get_loader().loadCache("lander-fire.png",hxd_res_Image).toTile();
+		fireTile.dx = -Math.round(fireTile.width / 2);
+		fireTile.dy = -Math.round(fireTile.height / 2);
 		new h2d_Bitmap(fireTile,fire);
 		fire.set_visible(false);
-		var groundTile = h2d_Tile.fromColor(16777215,this.s2d.width,this.groundThickness,null,{ fileName : "Main.hx", lineNumber : 33, className : "Main", methodName : "init"});
+		var groundTile = h2d_Tile.fromColor(16777215,this.s2d.width,this.groundThickness,null,{ fileName : "Main.hx", lineNumber : 32, className : "Main", methodName : "init"});
 		this.ground = new h2d_Bitmap(groundTile,this.s2d);
 		var _this = this.ground;
 		_this.posChanged = true;
 		_this.y = this.s2d.height - this.groundHeight;
 	}
 	,update: function(dt) {
-		if(hxd_Key.isDown(38)) {
-			this.lander.fireOn();
-			this.lander.vy += this.propulsion;
-		} else {
-			this.lander.fireOff();
-		}
-		var _g = this.lander;
-		_g.posChanged = true;
-		_g.x += this.lander.vx * dt;
-		var _g1 = this.lander;
-		_g1.posChanged = true;
-		_g1.y += this.lander.vy * dt;
-		this.lander.vy += this.gravity;
+		this.lander.update(dt);
 	}
 	,__class__: Main
 });
@@ -45764,7 +45793,7 @@ var Bool = $hxClasses["Bool"] = Boolean;
 Bool.__ename__ = ["Bool"];
 var Class = $hxClasses["Class"] = { __name__ : ["Class"]};
 var Enum = { };
-haxe_Resource.content = [{ name : "R_lander_fire_png", data : "iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAPUlEQVR42mNgGAWjYBSMglEwCkYBiWCfmvH/152GYPz9UTacDRKnmUU0sQDdIppZQFdLYJjmiYAuKY1UPQDBpjYmJtX4TwAAAABJRU5ErkJggg"},{ name : "R_lander_png", data : "iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAmUlEQVR42r3WUQ6AIAgGYG7UNXrqIt26S/RYW1tNTJAfQTZeLPg2TY1IiMsRZI1W8bJuYkIY0tgCqkBZdB77k/VY750mpAFWRIVQABn/oBopCzxI+YwhKIBC85GMZGsSjbE98zbPCHG6opo3pytrPX4bMgoTz7AoyHUap9wr6YjrlkPqR4FunyhA7RcJiD3TkeHfG8OXOQW5AdBLLApV4nUrAAAAAElFTkSuQmCC"}];
+haxe_Resource.content = [{ name : "R_lander_fire_png", data : "iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAPElEQVR42mNgGAWjYBQMbrBPzfg/zS143Wn4nyYGwzDIAqpags1wEP7+KHuI+YSucUL31DUKRsEooD8AAKa6NibR9tQPAAAAAElFTkSuQmCC"},{ name : "R_lander_png", data : "iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAmUlEQVR42tWWUQqAIBBEu1HX6KuLdOsu0aeBJEjN2BTORguCgvocdnQd0hGDEEkIeWFr3jjNudX9MqZ7KCdCgDMEwS4bIKiiYluX3BCIQpg6pqJAmiCWBwS4g9Qg2VBvII9BCqSlqDsEGcEGQZbulpMQCINZIMhh/1JizUmIu0LvifXGS29XyCv8ST2xVsbeNd7+W6GLnf+uHfNWLArqk7AmAAAAAElFTkSuQmCC"}];
 var __map_reserved = {};
 var ArrayBuffer = $global.ArrayBuffer || js_html_compat_ArrayBuffer;
 if(ArrayBuffer.prototype.slice == null) {

@@ -1,12 +1,8 @@
-import hxd.Key in K;
-
 class Main extends hxd.App {
 
     var lander : Lander;
     var ground : h2d.Bitmap;
 
-    var gravity : Float = 0.05;
-    var propulsion : Float = -0.1;
     var groundHeight = 40;
     var groundThickness = 30;
 
@@ -20,12 +16,15 @@ class Main extends hxd.App {
         lander.init();
         // Load bitmaps in sprite   
         var landerTile = hxd.Res.lander.toTile();
-        landerTile.center();   
+        landerTile.dx = -Math.round(landerTile.width / 2);   
+        landerTile.dy = -Math.round(landerTile.height / 2);   
         new h2d.Bitmap(landerTile, lander);
         // Create fire sprite as a lander child
         var fire = new h2d.Sprite(lander);
         fire.name = "fire";
         var fireTile = hxd.Res.lander_fire.toTile();
+        fireTile.dx = -Math.round(fireTile.width / 2);   
+        fireTile.dy = -Math.round(fireTile.height / 2);   
         new h2d.Bitmap(fireTile, fire);
         fire.visible = false;
 
@@ -36,17 +35,8 @@ class Main extends hxd.App {
     }
     
     override function update(dt:Float) {
-        // Controls
-        if (K.isDown(K.UP)) {
-            lander.fireOn();
-            lander.vy += propulsion;
-        } else {
-            lander.fireOff();
-        }
-        // Move and gravity
-        lander.x += lander.vx * dt;
-        lander.y += lander.vy * dt;
-        lander.vy += gravity;
+        // Lander
+        lander.update(dt);
     }
     
     static function main() {
