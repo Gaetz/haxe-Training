@@ -1,8 +1,8 @@
 @echo off
 
 set buildDir=%~dp0..\build
-set assetsDir=%~dp0..\assets
+set assetsDir=%~dp0..\src\res
 
 :: Copy assets
-if not exist %buildDir%\assets mkdir %buildDir%\assets
-xcopy /y /s %assetsDir% %buildDir%\assets
+if not exist %buildDir%\res mkdir %buildDir%\res
+xcopy /y /s %assetsDir% %buildDir%\res
