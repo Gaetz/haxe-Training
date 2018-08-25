@@ -1,6 +1,13 @@
+# class paths
 -cp src
--lib heaps
--D analyzer-optimize
--debug
+
+# entry point
 -main Main
--js build/main.js
+
+# libraries
+-lib heaps
+-lib hldx
+#-lib hlsdl
+
+# output
+-hl bin/game.hl
