@@ -14,7 +14,7 @@ class Main extends hxd.App {
     override function init() {
         // Init resources
         hxd.Res.initEmbed();
-        font = hxd.Res.trueTypeFont.build(64);
+        font = hxd.Res.customFont.toFont();
 
         // Lander Sprite
         // Create sprite on standard scene
