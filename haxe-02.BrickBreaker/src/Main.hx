@@ -10,7 +10,7 @@ class Main extends hxd.App {
 
     override function init() {
         // Init resources
-        hxd.Res.initEmbed();
+        //hxd.Res.initEmbed();
 
         // Create sprite on standard scene
         var tile = h2d.Tile.fromColor(0xFF00AA, 100, 20);

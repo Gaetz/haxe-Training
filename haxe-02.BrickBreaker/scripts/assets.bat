@@ -1,6 +1,6 @@
 @echo off
 
-set buildDir=%~dp0..\build
+set buildDir=%~dp0..\bin
 set assetsDir=%~dp0..\src\res
 
 :: Copy assets
