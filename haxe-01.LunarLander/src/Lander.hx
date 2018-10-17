@@ -1,6 +1,6 @@
 import hxd.Key in K;
 
-class Lander extends h2d.Sprite {
+class Lander extends h2d.Object {
     public var vx : Float;
     public var vy : Float;
 
@@ -31,7 +31,7 @@ class Lander extends h2d.Sprite {
         if (K.isDown(K.RIGHT)) {
             rotation -= rotateSpeed * dt;
         }
-        // Behaviout
+        // Behaviour
         if(isFireOn) {
             var xForce = Math.cos(rotation) * propulsion;
             var yForce = Math.sin(rotation) * propulsion;
@@ -45,12 +45,12 @@ class Lander extends h2d.Sprite {
     }
 
     public function fireOn() {
-        getSpriteByName("fire").visible = true;
+        getObjectByName("fire").visible = true;
         isFireOn = true;
     }
 
     public function fireOff() {
-        getSpriteByName("fire").visible = false;
+        getObjectByName("fire").visible = false;
         isFireOn = false;
     }
 }

@@ -26,7 +26,7 @@ class Main extends hxd.App {
         landerTile.dy = -Math.round(landerTile.height / 2);   
         new h2d.Bitmap(landerTile, lander);
         // Create fire sprite as a lander child
-        var fire = new h2d.Sprite(lander);
+        var fire = new h2d.Object(lander);
         fire.name = "fire";
         var fireTile = hxd.Res.lander_fire.toTile();
         fireTile.dx = -Math.round(fireTile.width / 2);   
