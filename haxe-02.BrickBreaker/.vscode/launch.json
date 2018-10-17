@@ -11,15 +11,6 @@
             "hxml": "build.hxml",
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "Build"
-        },
-        {
-            "name": "HashLink",
-            "request": "attach",
-            "port": 6112,
-            "type": "hl",
-            "hxml": "build.hxml",
-            "cwd": "${workspaceRoot}",
-            "preLaunchTask": "Build"
         }
     ]
 }
