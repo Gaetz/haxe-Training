@@ -5,19 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "HashLink",
+            "name": "HashLink (launch)",
             "request": "launch",
             "type": "hl",
-            "hxml": "build.hxml",
+            "hxml": "compile.hxml",
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "Build"
         },
         {
-            "name": "HashLink",
+            "name": "HashLink (attach)",
             "request": "attach",
             "port": 6112,
             "type": "hl",
-            "hxml": "build.hxml",
+            "hxml": "compile.hxml",
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "Build"
         }

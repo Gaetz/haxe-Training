@@ -5,49 +5,18 @@
     "tasks": [
         {
             "label": "Build",
-            "dependsOn": [
-                "Build Hxml", "Assets"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "Build Hxml",
-            "command": "haxe",
-            "args": [
-                "build.hxml"
-            ],
+            "type": "haxe",
+            "args": "active configuration",
             "problemMatcher": [
                 "$haxe-absolute",
                 "$haxe",
                 "$haxe-error",
                 "$haxe-trace"
             ],
-            "presentation": {
-                "echo": true,
-                "reveal": "never",
-                "focus": false,
-                "panel": "shared"
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
-        },
-        {
-            "label": "Assets",
-            "type": "shell",
-            "command": "./scripts/assets",
-            "presentation": {
-                "echo": true,
-                "reveal": "never",
-                "focus": false,
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Run JS",
-            "type": "shell",
-            "command": "C:\\Program Files (x86)\\Mozilla Firefox\\firefox",
-            "args": ["-url","${workspaceRoot}\\build\\index.html"],
         }
     ]
 }

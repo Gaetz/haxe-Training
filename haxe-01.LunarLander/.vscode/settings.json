@@ -1,6 +1,0 @@
-{
-    "haxe.displayConfigurations": [
-        ["scripts/build.hxml"]
-    ],
-    "eslint.enable": false
-}
